@@ -9,12 +9,10 @@ MeteoFunctions calc;
     float wind_speed = 2;   // m/s
     float temp = 21.0;      // °C
     float humidity = 60.0;  // %
-    float pressure = 990.4; // hPa
 #elif defined(FAHRENHEIT)
     float wind_speed = 2;   // m/s
-    float temp = 21.0;      // °F
+    float temp = 69.8;      // °F
     float humidity = 60.0;  // %
-    float pressure = 990.4; // hPa
 #endif
 
 void setup() {
