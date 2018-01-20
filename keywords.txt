@@ -1,0 +1,39 @@
+#######################################
+# Syntax Coloring Map
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+MeteoFunctions KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+c_f            KEYWORD2
+f_c            KEYWORD2
+msToKmh        KEYWORD2
+msToMph        KEYWORD2
+msToKn         KEYWORD2
+humidex_c      KEYWORD2
+humidex_f      KEYWORD2
+dewPoint_c     KEYWORD2
+dewPoint_f     KEYWORD2
+beaufort       KEYWORD2
+windChill_c    KEYWORD2
+windChill_f    KEYWORD2
+heatIndex_c    KEYWORD2
+heatIndex_f    KEYWORD2
+apparentTemp_c KEYWORD2
+apparentTemp_f KEYWORD2
+cloudBase_m    KEYWORD2
+
+#######################################
+# Instances (KEYWORD2)
+#######################################
+
+#######################################
+# Constants (LITERAL1)
+#######################################
