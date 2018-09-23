@@ -25,6 +25,8 @@ SOFTWARE.
 
 #if defined(__MBED__)
   #include "mbed.h"
+#else
+  #include "Arduino.h"
 #endif
 
 class MeteoFunctions {

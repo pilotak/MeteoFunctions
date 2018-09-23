@@ -134,8 +134,8 @@ float MeteoFunctions::windChill_c(float temp_c, float wind_speed_ms) {
     if (temp_c <= 10 && wind_speed_kmh >= 5) {
         wind_chill_c = 13.12;
         wind_chill_c += 0.6215 * temp_c;
-        wind_chill_c -= 11.37 * pow(static_cast<double>wind_speed_kmh, 0.16);
-        wind_chill_c += 0.3965 * temp_c * pow(static_cast<double>wind_speed_kmh, 0.16);
+        wind_chill_c -= 11.37 * pow(static_cast<double>(wind_speed_kmh), 0.16);
+        wind_chill_c += 0.3965 * temp_c * pow(static_cast<double>(wind_speed_kmh), 0.16);
 
     } else {
         wind_chill_c = temp_c;
@@ -169,11 +169,11 @@ float MeteoFunctions::heatIndex_f(float temp_f, float humidity) {
 
     } else if ((heat_index_f + temp_f) / 2 > 80) {
         heat_index_f = -42.379 + (2.04901523 * temp_f) + (10.14333127 * humidity);
-        heat_index_f -= (0.22475541 * temp_f * humidity) - (6.83783 * pow(10.0, -3.0) * pow(static_cast<double>temp_f, 2.0));
-        heat_index_f -= (5.481717 * pow(10.0, -2) * pow(static_cast<double>humidity, 2.0)) + (1.22874 * pow(10.0,
-                        -3.0) * pow(static_cast<double>temp_f, 2.0) * humidity);
-        heat_index_f += (8.5282 * pow(10.0, -4.0) * temp_f * pow(static_cast<double>humidity, 2.0));
-        heat_index_f -= (1.99 * pow(10.0, -6.0) * pow(static_cast<double>temp_f, 2.0) * pow(static_cast<double>humidity, 2.0));
+        heat_index_f -= (0.22475541 * temp_f * humidity) - (6.83783 * pow(10.0, -3.0) * pow(static_cast<double>(temp_f), 2.0));
+        heat_index_f -= (5.481717 * pow(10.0, -2) * pow(static_cast<double>(humidity), 2.0)) + (1.22874 * pow(10.0,
+                        -3.0) * pow(static_cast<double>(temp_f), 2.0) * humidity);
+        heat_index_f += (8.5282 * pow(10.0, -4.0) * temp_f * pow(static_cast<double>(humidity), 2.0));
+        heat_index_f -= (1.99 * pow(10.0, -6.0) * pow(static_cast<double>(temp_f), 2.0) * pow(static_cast<double>(humidity), 2.0));
 
 
         float heat_index_adj = 0;
@@ -185,7 +185,7 @@ float MeteoFunctions::heatIndex_f(float temp_f, float humidity) {
         heat_index_f -= heat_index_adj;  // apply correction
     }
 
-    return static_cast<float>heat_index_f;
+    return static_cast<float>(heat_index_f);
 }
 
 /**
