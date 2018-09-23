@@ -50,7 +50,8 @@ class MeteoFunctions {
   float    apparentTemp_f(float temp_f, float humidity, float wind_speed_ms);
   float    cloudBase_m(float temp_c, float humidity);
   float    cloudBase_f(float temp_f, float humidity);
-  float    relativePressure(float abs_pressure, float temp_c);
+  float    relativePressure_c(float abs_pressure, float temp_c);
+  float    relativePressure_f(float abs_pressure, float temp_f);
 };
 
 #endif  // METEOFUNCTIONS_H
