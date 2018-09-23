@@ -1,0 +1,23 @@
+language: python
+python:
+  - "2.7"
+
+sudo: false
+cache:
+  directories:
+    - "~/.platformio"
+
+env:
+  - PLATFORMIO_CI_SRC=examples/MeteoFunctions
+
+install:
+  - pip install -U platformio
+  - platformio update
+
+script:
+  - platformio ci --lib="." --board=uno --board=zero --board=d1_mini
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change

@@ -4,6 +4,8 @@ f_c	KEYWORD2
 msToKmh	KEYWORD2
 msToMph	KEYWORD2
 msToKn	KEYWORD2
+m_f KEYWORD2
+f_m KEYWORD2
 humidex_c	KEYWORD2
 humidex_f	KEYWORD2
 dewPoint_c	KEYWORD2
@@ -16,3 +18,6 @@ heatIndex_f	KEYWORD2
 apparentTemp_c	KEYWORD2
 apparentTemp_f	KEYWORD2
 cloudBase_m	KEYWORD2
+cloudBase_f KEYWORD2
+relativePressure_c KEYWORD2
+relativePressure_f KEYWORD2
