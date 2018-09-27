@@ -61,14 +61,14 @@ uint16_t MeteoFunctions::msToKn(float ms) {
 /**
  * Converts meters to feet
  */
-float MeteoFunctions::m_f(float meters) {
+float MeteoFunctions::m_ft(float meters) {
     return meters * 3.2808399;
 }
 
 /**
  * Converts feet to meters
  */
-float MeteoFunctions::f_m(float feet) {
+float MeteoFunctions::ft_m(float feet) {
     return feet / 3.2808399;
 }
 
@@ -218,19 +218,19 @@ float MeteoFunctions::cloudBase_m(float temp_c, float humidity) {
  * Calculates cloud base height
  */
 float MeteoFunctions::cloudBase_f(float temp_f, float humidity) {
-    return m_f(cloudBase_m(f_c(temp_f), humidity));
+    return m_ft(cloudBase_m(f_c(temp_f), humidity));
 }
 
 /**
  * Calculates relative pressure
  */
-float MeteoFunctions::relativePressure_c(float abs_pressure, float temp_c) {
-    return ((abs_pressure * 9.80665 * 485 ) / (287 * (273 + temp_c + (485 / 400)))) + abs_pressure;
+float MeteoFunctions::relativePressure_c(float abs_pressure, float height_m, float temp_c) {
+    return ((abs_pressure * 9.80665 * height_m ) / (287.0 * (273.0 + temp_c + (height_m / 400.0)))) + abs_pressure;
 }
 
 /**
  * Calculates relative pressure
  */
-float MeteoFunctions::relativePressure_f(float abs_pressure, float temp_f) {
-    return relativePressure_c(abs_pressure, f_c(temp_f));
+float MeteoFunctions::relativePressure_f(float abs_pressure, float height_ft, float temp_f) {
+    return relativePressure_c(abs_pressure, ft_m(height_ft), f_c(temp_f));
 }

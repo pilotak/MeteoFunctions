@@ -37,8 +37,8 @@ class MeteoFunctions {
   float    msToKmh(float ms);
   float    msToMph(float ms);
   uint16_t msToKn(float ms);
-  float    m_f(float meters);
-  float    f_m(float feet);
+  float    m_ft(float meters);
+  float    ft_m(float feet);
   float    humidex_c(float temp_c, float humidity);
   float    humidex_f(float temp_f, float humidity);
   float    dewPoint_c(float temp_c, float humidity);
@@ -52,8 +52,8 @@ class MeteoFunctions {
   float    apparentTemp_f(float temp_f, float humidity, float wind_speed_ms);
   float    cloudBase_m(float temp_c, float humidity);
   float    cloudBase_f(float temp_f, float humidity);
-  float    relativePressure_c(float abs_pressure, float temp_c);
-  float    relativePressure_f(float abs_pressure, float temp_f);
+  float    relativePressure_c(float abs_pressure, float height_m, float temp_c);
+  float    relativePressure_f(float abs_pressure, float height_ft, float temp_f);
 };
 
 #endif  // METEOFUNCTIONS_H
