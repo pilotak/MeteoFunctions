@@ -35,7 +35,10 @@ void loop() {
     Serial.print(" m/h\nWind speed knots: ");
     Serial.print(calc.msToKn(wind_speed));
 
-    Serial.print(" knots\nHumidex: ");
+    Serial.print(" knots\nWind beaufort: ");
+    Serial.print(calc.beaufort(wind_speed));
+
+    Serial.print(" \nHumidex: ");
     Serial.print(calc.humidex_c(temp, humidity));
 
     Serial.print(" *C\nDew point: ");
@@ -70,7 +73,10 @@ void loop() {
     Serial.print(" m/h\nWind speed knots: ");
     Serial.print(calc.msToKn(wind_speed));
 
-    Serial.print(" knots\nHumidex: ");
+    Serial.print(" knots\nWind beaufort: ");
+    Serial.print(calc.beaufort(wind_speed));
+
+    Serial.print(" \nHumidex: ");
     Serial.print(calc.humidex_f(temp, humidity));
 
     Serial.print(" *F\nDew point: ");
