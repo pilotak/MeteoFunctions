@@ -6,15 +6,17 @@ MeteoFunctions calc;
 //#define FAHRENHEIT
 
 #if defined(CELSIUS)
-    float wind_speed = 2;    // m/s
-    float temp = 21.0;       // °C
-    float humidity = 60.0;   // %
-    float pressure = 975.8;  // Pa
+    float wind_speed = 2;     // m/s
+    float temp = 21.0;        // °C
+    float humidity = 60.0;    // %
+    float pressure = 975.8;   // Pa
+    float above_sea = 408.0;  // m
 #elif defined(FAHRENHEIT)
-    float wind_speed = 2;   // m/s
-    float temp = 69.8;      // °F
-    float humidity = 60.0;  // %
-    float pressure = 975.8;  // Pa
+    float wind_speed = 2;      // m/s
+    float temp = 69.8;         // °F
+    float humidity = 60.0;     // %
+    float pressure = 975.8;    // Pa
+    float above_sea = 1338.5;  // ft
 #endif
 
 void setup() {
@@ -55,7 +57,7 @@ void loop() {
     Serial.print(calc.cloudBase_m(temp, humidity));
 
     Serial.print(" metres\n: ");
-    Serial.print(calc.relativePressure_c(pressure, temp));
+    Serial.print(calc.relativePressure_c(pressure, above_sea, temp));
     Serial.println(" Pa");
 
 #elif defined(FAHRENHEIT)
@@ -90,7 +92,7 @@ void loop() {
     Serial.print(calc.cloudBase_f(temp, humidity));
 
     Serial.print(" feet\n: ");
-    Serial.print(calc.relativePressure_f(pressure, temp));
+    Serial.print(calc.relativePressure_f(pressure, above_sea, temp));
     Serial.println(" Pa");
 #endif
     delay(5000);
