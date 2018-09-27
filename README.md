@@ -21,7 +21,7 @@ Let's add them to your project. You don't need any special sensors, it's just a 
 
 MeteoFunctions calc;
 
-float wind_speed = 2.0;     // m/s
+float wind_speed = 2.0;   // m/s
 float temp = 21.0;        // °C
 float humidity = 60.0;    // %
 float pressure = 975.8;   // Pa
