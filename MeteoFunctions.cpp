@@ -225,7 +225,7 @@ float MeteoFunctions::cloudBase_f(float temp_f, float humidity) {
  * Calculates relative pressure
  */
 float MeteoFunctions::relativePressure_c(float abs_pressure, float height_m, float temp_c) {
-    return ((abs_pressure * 9.80665 * height_m ) / (287.0 * (273.0 + temp_c + (height_m / 400.0)))) + abs_pressure;
+    return (abs_pressure / pow(1.0 - 0.0065 * height_m / (temp_c  + 273.15), 5.255));  // ICAO formula
 }
 
 /**
