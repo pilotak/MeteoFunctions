@@ -84,7 +84,7 @@ float MeteoFunctions::humidex_c(float temp_c, float humidity) {
  * Calculates humidex in Fahrenheit
  */
 float MeteoFunctions::humidex_f(float temp_f, float humidity) {
-    return humidex_c(f_c(temp_f), humidity);
+    return c_f(humidex_c(f_c(temp_f), humidity));
 }
 
 /**
@@ -92,7 +92,7 @@ float MeteoFunctions::humidex_f(float temp_f, float humidity) {
  */
 float MeteoFunctions::dewPoint_c(float temp_c, float humidity) {
     return 243.04 * (log(humidity / 100) + ((17.625 * temp_c) / (243.04 + temp_c))) / (17.625 - log(humidity / 100) - ((17.625 * temp_c) /
-            (243.04 + temp_c))) ;
+            (243.04 + temp_c)));
 }
 
 /**
