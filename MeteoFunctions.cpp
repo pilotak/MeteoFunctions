@@ -155,7 +155,7 @@ float MeteoFunctions::windChill_f(float temp_f, float wind_speed_ms) {
  * Calculates heat index in Celsius
  */
 float MeteoFunctions::heatIndex_c(float temp_c, float humidity) {
-    return heatIndex_f(c_f(temp_c), humidity);
+    return f_c(heatIndex_f(c_f(temp_c), humidity));
 }
 
 /**
