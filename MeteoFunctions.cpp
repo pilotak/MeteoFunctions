@@ -45,6 +45,13 @@ float MeteoFunctions::msToKmh(float ms) {
 }
 
 /**
+ * Converts km/h to m/s
+ */
+float MeteoFunctions::kmhToMs(float kmh) {
+    return kmh * 5 / 18;
+}
+
+/**
  * Converts m/s to m/h
  */
 float MeteoFunctions::msToMph(float ms) {
@@ -52,10 +59,24 @@ float MeteoFunctions::msToMph(float ms) {
 }
 
 /**
+ * Converts m/h to m/h m/s
+ */
+float MeteoFunctions::mphToMs(float mph) {
+    return mph * 2.236936;
+}
+
+/**
  * Converts m/s to knots
  */
-uint16_t MeteoFunctions::msToKn(float ms) {
+float MeteoFunctions::msToKn(float ms) {
     return ms * 1.94384449;
+}
+
+/**
+ * Converts knots to m/s
+ */
+float MeteoFunctions::knToMs(float kn) {
+    return kn * 0.5144444;
 }
 
 /**
@@ -70,6 +91,20 @@ float MeteoFunctions::m_ft(float meters) {
  */
 float MeteoFunctions::ft_m(float feet) {
     return feet / 3.2808399;
+}
+
+/**
+ * Converts hPa to inHg
+ */
+float MeteoFunctions::hPa_inHg(float hPa) {
+    return 0.02952998751 * hPa;
+}
+
+/**
+ * Converts inHg to hPa
+ */
+float MeteoFunctions::inHg_hPa(float inHg) {
+    return inHg / 0.02952998751;
 }
 
 /**
@@ -99,7 +134,7 @@ float MeteoFunctions::dewPoint_c(float temp_c, float humidity) {
  * Calculates dew point in Fahrenheit
  */
 float MeteoFunctions::dewPoint_f(float temp_f, float humidity) {
-    return dewPoint_c(f_c(temp_f), humidity);
+    return c_f(dewPoint_c(f_c(temp_f), humidity));
 }
 
 /**
@@ -148,7 +183,7 @@ float MeteoFunctions::windChill_c(float temp_c, float wind_speed_ms) {
  * Calculates wind chill in Fahrenheit
  */
 float MeteoFunctions::windChill_f(float temp_f, float wind_speed_ms) {
-    return windChill_c(f_c(temp_f), wind_speed_ms);
+    return c_f(windChill_c(f_c(temp_f), wind_speed_ms));
 }
 
 /**
@@ -204,7 +239,7 @@ float MeteoFunctions::apparentTemp_c(float temp_c, float humidity, float wind_sp
  * Calculates apparent temperature in Celsius
  */
 float MeteoFunctions::apparentTemp_f(float temp_f, float humidity, float wind_speed_ms) {
-    return apparentTemp_c(f_c(temp_f), humidity, wind_speed_ms);
+    return c_f(apparentTemp_c(f_c(temp_f), humidity, wind_speed_ms));
 }
 
 /**

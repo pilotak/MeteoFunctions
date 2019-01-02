@@ -24,7 +24,7 @@ MeteoFunctions calc;
 float wind_speed = 2.0;   // m/s
 float temp = 21.0;        // °C
 float humidity = 60.0;    // %
-float pressure = 975.8;   // Pa
+float pressure = 975.8;   // hPa
 float above_sea = 408.0;  // m
 
 void setup() {
