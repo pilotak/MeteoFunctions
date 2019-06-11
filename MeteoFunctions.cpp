@@ -97,7 +97,7 @@ float MeteoFunctions::ft_m(float feet) {
  * Converts hPa to inHg
  */
 float MeteoFunctions::hPa_inHg(float hPa) {
-    return 0.02952998751 * hPa;
+    return hPa * 0.02952998751;
 }
 
 /**
@@ -105,6 +105,20 @@ float MeteoFunctions::hPa_inHg(float hPa) {
  */
 float MeteoFunctions::inHg_hPa(float inHg) {
     return inHg / 0.02952998751;
+}
+
+/**
+ * Converts g/m3 to gr/ft3
+ */
+float MeteoFunctions::gm3_grft3(float gm3) {
+    return gm3 * 0.0283168466;
+}
+
+/**
+ * Converts gr/ft3 to g/m3
+ */
+float MeteoFunctions::grft3_gm3(float grft3) {
+    return grft3 / 0.0283168466;
 }
 
 /**
@@ -268,5 +282,25 @@ float MeteoFunctions::relativePressure_c(float abs_pressure, float height_m, flo
  * Calculates relative pressure
  */
 float MeteoFunctions::relativePressure_f(float abs_pressure, float height_ft, float temp_f) {
-    return relativePressure_c(abs_pressure, ft_m(height_ft), f_c(temp_f));
+    return hPa_inHg(relativePressure_c(abs_pressure, ft_m(height_ft), f_c(temp_f)));
 }
+
+/**
+ * Calculates absolute humidity
+ */
+float MeteoFunctions::absoluteHumidity_c(float temp_c, float humidity) {
+    double abs = 6.112 * exp(17.67 * temp_c / (temp_c + 243.5));
+    abs *= humidity * 2.1674;
+    abs /= (273.15 + temp_c);
+
+    return static_cast<float>(abs);
+}
+
+/**
+ * Calculates absolute humidity
+ */
+float MeteoFunctions::absoluteHumidity_f(float temp_f, float humidity) {
+    return gm3_grft3(absoluteHumidity_c(f_c(temp_f), humidity));
+}
+
+

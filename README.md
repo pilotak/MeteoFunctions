@@ -12,8 +12,9 @@ Do you have your own meteo station based on Arduino or Mbed? and ever wondered h
 - Apparent temperature
 - Cloud height base
 - Relative pressure
+- Absolute humidity
 
-Let's add them to your project. You don't need any special sensors, it's just a math. Here is a class that do that for you. Supports both **Celsius** and **Fahrenheit**.
+Let's add them to your project. You don't need any special sensors, it's just a math. Here is a class that do that for you. Supports both **Celsius** and **Fahrenheit**, please navigate to full example.
 
 ## Example
 ```cpp
@@ -67,7 +68,10 @@ void loop() {
 
     Serial.print(" metres\n: ");
     Serial.print(calc.relativePressure_c(pressure, above_sea, temp));
-    Serial.println(" Pa");
+
+    Serial.print(" Pa\nAbsolute humidity: ");
+    Serial.print(calc.absoluteHumidity_c(temp, humidity));
+    Serial.println(" g/m3\n");
 
     delay(5000);
 }

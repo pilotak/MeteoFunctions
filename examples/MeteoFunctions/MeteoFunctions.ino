@@ -61,7 +61,10 @@ void loop() {
 
     Serial.print(" metres\nRelative pressure: ");
     Serial.print(calc.relativePressure_c(pressure, above_sea, temp));
-    Serial.println(" Pa\n");
+
+    Serial.print(" Pa\nAbsolute humidity: ");
+    Serial.print(calc.absoluteHumidity_c(temp, humidity));
+    Serial.println(" g/m3\n");
 
 #elif defined(FAHRENHEIT)
     Serial.print("Wind speed: ");
@@ -98,8 +101,11 @@ void loop() {
     Serial.print(calc.cloudBase_f(temp, humidity));
 
     Serial.print(" feet\nRelative pressure: ");
-    Serial.print(calc.hPa_inHg(calc.relativePressure_f(pressure, above_sea, temp)));
-    Serial.println(" inHg\n");
+    Serial.print(calc.relativePressure_f(pressure, above_sea, temp));
+
+    Serial.print(" inHg\nAbsolute humidity: ");
+    Serial.print(calc.absoluteHumidity_f(temp, humidity));
+    Serial.println(" gr/ft3\n");
 #endif
     delay(5000);
 }

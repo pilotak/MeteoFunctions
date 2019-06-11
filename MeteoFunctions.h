@@ -1,6 +1,6 @@
 /*
 MIT License
-Copyright (c) 2018 Pavel Slama
+Copyright (c) 2019 Pavel Slama
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -42,6 +42,8 @@ class MeteoFunctions {
   float   knToMs(float kn);
   float   m_ft(float meters);
   float   ft_m(float feet);
+  float   gm3_grft3(float gm3);
+  float   grft3_gm3(float grft3);
   float   hPa_inHg(float hPa);
   float   inHg_hPa(float inHg);
   float   humidex_c(float temp_c, float humidity);
@@ -59,6 +61,8 @@ class MeteoFunctions {
   float   cloudBase_f(float temp_f, float humidity);
   float   relativePressure_c(float abs_pressure, float height_m, float temp_c);
   float   relativePressure_f(float abs_pressure, float height_ft, float temp_f);
+  float   absoluteHumidity_c(float temp_c, float humidity);
+  float   absoluteHumidity_f(float temp_f, float humidity);
 };
 
 #endif  // METEOFUNCTIONS_H
