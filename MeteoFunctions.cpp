@@ -197,24 +197,26 @@ float MeteoFunctions::heatIndex_c(float temp_c, float humidity) {
  * Calculates heat index in Fahrenheit
  */
 float MeteoFunctions::heatIndex_f(float temp_f, float humidity) {
-    double heat_index_f = 0.5 * (temp_f + 61.0 + ((temp_f - 68.0) * 1.2) + (humidity * 0.094));
+    double heat_index_f = static_cast<double>(temp_f);
 
-    if (humidity < 40) {  // heat index not aplicable below 40%
-        heat_index_f = temp_f;
+    if (humidity >= 40 && temp_f >= 80) {  // heat index is only aplicable above 40% RH and 80°F
+        heat_index_f = -42.379 + (2.04901523 * temp_f);
+        heat_index_f += 10.14333127 * humidity;
+        heat_index_f += -0.22475541 * temp_f * humidity;
+        heat_index_f += -0.00683783 * pow(temp_f, 2.0);
+        heat_index_f += -0.05481717 * pow(humidity, 2.0);
+        heat_index_f += 0.00122874 * pow(temp_f, 2.0) * humidity;
+        heat_index_f += 0.00085282 * temp_f * pow(humidity, 2.0);
+        heat_index_f += -0.00000199 * pow(temp_f, 2.0) * pow(humidity, 2.0);
 
-    } else if ((heat_index_f + temp_f) / 2 >= 81) {
-        heat_index_f = -42.379 + (2.04901523 * temp_f) + (10.14333127 * humidity);
-        heat_index_f -= (0.22475541 * temp_f * humidity) - (6.83783 * pow(10.0, -3.0) * pow(static_cast<double>(temp_f), 2.0));
-        heat_index_f -= (5.481717 * pow(10.0, -2) * pow(static_cast<double>(humidity), 2.0)) + (1.22874 * pow(10.0,
-                        -3.0) * pow(static_cast<double>(temp_f), 2.0) * humidity);
-        heat_index_f += (8.5282 * pow(10.0, -4.0) * temp_f * pow(static_cast<double>(humidity), 2.0));
-        heat_index_f -= (1.99 * pow(10.0, -6.0) * pow(static_cast<double>(temp_f), 2.0) * pow(static_cast<double>(humidity), 2.0));
+        double heat_index_adj = 0;
 
+        if (humidity < 13 && (temp_f >= 80 && temp_f <= 120)) {
+            heat_index_adj = ((13 - humidity) / 4) * sqrt((17 - abs(temp_f - 95.0)) / 17);
 
-        float heat_index_adj = 0;
-
-        if (humidity < 13 && (temp_f >= 80 && temp_f <= 120)) heat_index_adj = ((13 - humidity) / 4) * sqrt((17 - abs(temp_f - 95.0)) / 17);
-        else if (humidity > 85 && (temp_f >= 80 && temp_f <= 87)) heat_index_adj = ((humidity - 85) / 10) * ((87 - temp_f) / 5) * (-1.0);
+        } else if (humidity > 85 && (temp_f >= 80 && temp_f <= 87)) {
+            heat_index_adj = ((humidity - 85) / 10) * ((87 - temp_f) / 5) * (-1.0);
+        }
 
         heat_index_f -= heat_index_adj;  // apply correction
     }
