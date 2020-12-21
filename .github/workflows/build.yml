@@ -1,0 +1,134 @@
+name: build
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - "*"
+
+jobs:
+  platformio-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.8"
+
+      - name: Install PlatformIO
+        run: |
+          python -m pip install --upgrade pip
+          pip install --upgrade platformio
+
+      - name: Compile
+        run: |
+          pio ci --lib="." --board=uno --board=zero --board=esp8285 --board=esp32dev --board=bluepill_f103c8
+        env:
+          PLATFORMIO_CI_SRC: examples/MeteoFunctions
+
+  arduino-build:
+    strategy:
+      matrix:
+        board: ["UNO", "Zero", "ESP8266", "ESP32", "STM32F103C8"]
+        include:
+          - board: "UNO"
+            platform: "arduino:avr"
+            fqbn: "arduino:avr:uno"
+            url: ""
+
+          - board: "Zero"
+            platform: "arduino:samd"
+            fqbn: "arduino:samd:arduino_zero_native"
+            url: ""
+
+          - board: "ESP8266"
+            platform: "esp8266:esp8266"
+            fqbn: "esp8266:esp8266:esp8285"
+            url: https://arduino.esp8266.com/stable/package_esp8266com_index.json
+
+          - board: "ESP32"
+            platform: "esp32:esp32"
+            fqbn: "esp32:esp32:esp32"
+            url: https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+
+          - board: "STM32F103C8"
+            platform: "STM32:stm32"
+            fqbn: "STM32:stm32:GenF1:pnum=BLUEPILL_F103C8"
+            url: https://github.com/stm32duino/BoardManagerFiles/raw/master/STM32/package_stm_index.json
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Prepare
+        run: |
+          cp ./MeteoFunctions.cpp ./examples/MeteoFunctions
+          cp ./MeteoFunctions.h ./examples/MeteoFunctions
+
+      - name: Set up Python
+        if: ${{ matrix.board == 'ESP32' }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.8"
+
+      - name: Install pyserial
+        if: ${{ matrix.board == 'ESP32' }}
+        run: |
+          python -m pip install --upgrade pip
+          pip install --upgrade pyserial
+
+      - name: Setup Arduino CLI
+        uses: arduino/setup-arduino-cli@v1.1.1
+
+      - name: "Install platform for ${{ matrix.board }}"
+        run: |
+          arduino-cli core update-index
+          arduino-cli core install ${{ matrix.platform }}
+        env:
+          ARDUINO_BOARD_MANAGER_ADDITIONAL_URLS: ${{ matrix.url }}
+
+      - name: Compile
+        run: arduino-cli compile --fqbn ${{ matrix.fqbn }} ./examples/MeteoFunctions
+
+  mbed-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+
+      - name: Install ARM GCC
+        run: |
+          wget -nv https://developer.arm.com/-/media/Files/downloads/gnu-rm/9-2019q4/gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2
+          sudo tar -C /bin/ -xjf gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2
+          echo "MBED_GCC_ARM_PATH=/bin/gcc-arm-none-eabi-9-2019-q4-major/bin/" >> $GITHUB_ENV
+
+      - name: Install mbed
+        run: |
+          pip install wheel exdown
+          pip install mbed-cli
+
+      - name: Create mbed project
+        run: |
+          mbed new .
+
+      - name: Extract code from README
+        run: |
+          echo 'import exdown' >> extract.py
+          echo 'code = exdown.extract("README.md", syntax_filter="cpp")' >> extract.py
+          echo 'print(code[0][0])' >> extract.py
+          python extract.py > main.cpp
+
+      - name: Compile
+        run: |
+          mbed compile -t GCC_ARM -m NUCLEO_F103RB

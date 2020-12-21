@@ -62,7 +62,7 @@ void loop() {
     Serial.print(" metres\nRelative pressure: ");
     Serial.print(calc.relativePressure_c(pressure, above_sea, temp));
 
-    Serial.print(" Pa\nAbsolute humidity: ");
+    Serial.print(" hPa\nAbsolute humidity: ");
     Serial.print(calc.absoluteHumidity_c(temp, humidity));
     Serial.println(" g/m3\n");
 

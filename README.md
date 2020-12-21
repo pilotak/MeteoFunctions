@@ -1,5 +1,5 @@
 # MeteoFunctions
-[![Build Status](https://travis-ci.org/pilotak/MeteoFunctions.svg?branch=master)](https://travis-ci.org/pilotak/MeteoFunctions) 
+[![build](https://github.com/pilotak/MeteoFunctions/workflows/build/badge.svg)](https://github.com/pilotak/MeteoFunctions/actions) 
 [![Framework Badge Arduino](https://img.shields.io/badge/framework-arduino-00979C.svg)](https://arduino.cc)
 [![Framework Badge mbed](https://img.shields.io/badge/framework-mbed-008fbe.svg)](https://os.mbed.com/)
 
@@ -16,8 +16,12 @@ Do you have your own meteo station based on Arduino or Mbed? and ever wondered h
 
 Let's add them to your project. You don't need any special sensors, it's just a math. Here is a class that do that for you. Supports both **Celsius** and **Fahrenheit**, please navigate to full example.
 
-## Example
+## Arduino example
+Please see `examples` folder
+
+## Mbed example
 ```cpp
+#include "mbed.h"
 #include "MeteoFunctions.h"
 
 MeteoFunctions calc;
@@ -28,51 +32,31 @@ float humidity = 60.0;    // %
 float pressure = 975.8;   // hPa
 float above_sea = 408.0;  // m
 
-void setup() {
-    Serial.begin(115200);
-}
+int main() {
+    printf("Wind speed: %f km/h\n", calc.msToKmh(wind_speed));
 
-void loop() {
-    Serial.print("Wind speed: ");
-    Serial.print(calc.msToKmh(wind_speed));
+    printf("Wind speed: %f m/h\n", calc.msToMph(wind_speed));
 
-    Serial.print(" km/h\nWind speed: ");
-    Serial.print(calc.msToMph(wind_speed));
+    printf("Wind speed: %f knots\n", calc.msToKn(wind_speed));
 
-    Serial.print(" m/h\nWind speed knots: ");
-    Serial.print(calc.msToKn(wind_speed));
+    printf("Beaufort wind scale: %u\n", calc.beaufort(wind_speed));
 
-    Serial.print(" knots\nWind beaufort: ");
-    Serial.print(calc.beaufort(wind_speed));
+    printf("Humidex: %f *C\n", calc.humidex_c(temp, humidity));
 
-    Serial.print(" \nHumidex: ");
-    Serial.print(calc.humidex_c(temp, humidity));
+    printf("Dew point: %f *C\n", calc.dewPoint_c(temp, humidity));
 
-    Serial.print(" *C\nDew point: ");
-    Serial.print(calc.dewPoint_c(temp, humidity));
+    printf("Wind chill: %f *C\n", calc.windChill_c(temp, wind_speed));
 
-    Serial.print(" *C\nBeaufort wind scale: ");
-    Serial.print(calc.beaufort(wind_speed));
+    printf("Heat index: %f *C\n", calc.heatIndex_c(temp, humidity));
 
-    Serial.print("\n Wind chill: ");
-    Serial.print(calc.windChill_c(temp, wind_speed));
+    printf("Apparent temperature: %f *C\n", calc.apparentTemp_c(temp, humidity, wind_speed));
 
-    Serial.print(" *C\nHeat index: ");
-    Serial.print(calc.heatIndex_c(temp, humidity));
+    printf("Could base: %f metres\n", calc.cloudBase_m(temp, humidity));
 
-    Serial.print(" *C\nApparent temperature: ");
-    Serial.print(calc.apparentTemp_c(temp, humidity, wind_speed));
+    printf("Relative pressure: %f hPa\n", calc.relativePressure_c(pressure, above_sea, temp));
 
-    Serial.print(" *C\n: ");
-    Serial.print(calc.cloudBase_m(temp, humidity));
+    printf("Absolute humidity: %f g/m3\n", calc.absoluteHumidity_c(temp, humidity));
 
-    Serial.print(" metres\n: ");
-    Serial.print(calc.relativePressure_c(pressure, above_sea, temp));
-
-    Serial.print(" Pa\nAbsolute humidity: ");
-    Serial.print(calc.absoluteHumidity_c(temp, humidity));
-    Serial.println(" g/m3\n");
-
-    delay(5000);
+    return 0;
 }
 ```
