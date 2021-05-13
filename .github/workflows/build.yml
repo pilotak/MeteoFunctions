@@ -115,7 +115,8 @@ jobs:
 
       - name: Install mbed
         run: |
-          pip install wheel exdown
+          pip install wheel
+          pip install exdown==0.7.1
           pip install mbed-cli
 
       - name: Create mbed project
